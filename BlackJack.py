@@ -67,7 +67,7 @@ class BlackJack:
 		print("\n[*] Setup Phase...")		
 		while True:
 			try:
-				self.player.money = int(input("\n\tEnter your starting money amount: "))
+				self.player.money = int(input("\n\tEnter your Total betting money: "))
 				if (self.player.money <= 0):
 					print('\n\t[!] Zero Funds Error: Please enter an amount greater than zero to play.')
 				else:
