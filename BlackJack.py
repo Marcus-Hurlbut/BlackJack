@@ -2,6 +2,7 @@ from Player import Player
 from Deck import Deck
 from Dealer import Dealer
 import time
+import sys
 from string import punctuation
 
 class BlackJack:
@@ -36,7 +37,7 @@ class BlackJack:
 
 	def gameHandler(self):
 		# Initial Bet
-		self.initialBet()
+		self.betAction()
 
 		# Initial Deal
 		self.initialDeal()
@@ -54,7 +55,7 @@ class BlackJack:
 		self.scoring()
 
 		# Settle Bets
-		self.settleBets()
+		self.betSettling()
 
 		# Re-Shuffle Deck
 		self.shuffleDeck()
@@ -63,15 +64,39 @@ class BlackJack:
 		return self.keepPlaying()
 
 	def determineDifficulty(self):
-		self.player.money = int(input("[*] Enter your starting money amount: "))
+		print("\n[*] Setup Phase...")		
+		while True:
+			try:
+				self.player.money = int(input("\n\tEnter your starting money amount: "))
+				if (self.player.money <= 0):
+					print('\n\t[!] Zero Funds Error: Please enter an amount greater than zero to play.')
+				else:
+					break
+
+			except ValueError:
+				print('\n\t[!] Value Error: Please enter a valid number integer.')
 
 
 
-	def initialBet(self):
+	def betAction(self):
 		print("\n[*] Initial Bet...")
 		print('\n\tYour total Money: ', self.player.money)
-		self.player.bet_amount = int(input("\tEnter your initial Bet: "))
-		pass
+
+		while True:
+			try:
+				self.player.bet_amount = int(input("\tEnter your initial Bet: "))
+
+				if (self.player.bet_amount > self.player.money):
+					print('\n\t[!] Bankrupt Error: Please enter an amount greater than your total amount.')
+
+				elif (self.player.bet_amount <= 0):
+					print('\n\t[!] Zero Funds Error: Please enter an amount greater than zero to play.')
+
+				else:
+					break
+				
+			except ValueError:
+				print('\n\t[!] Value Error: Please enter a valid number integer.')
 
 
 	def initialDeal(self):
@@ -195,13 +220,18 @@ class BlackJack:
 		print('\tDealer Score: ', self.score['Dealer'])
 
 
-	def settleBets(self):
+	def betSettling(self):
 		if(self.winner == 'Dealer'):
 			self.player.money -= self.player.bet_amount
 		else:
 			self.player.money += self.player.bet_amount
 
 		print('\n\tCurrent money amount: $', self.player.money)
+		if (self.player.money <= 0):
+			print('\n\t[!] You have gone Bankrupt! Come back again when you have more money.')
+			print('\t[*] Thanks for playing BlackJack!')
+			print('\t[!] Exiting...')
+			sys.exit()
 		self.player.bet_amount = 0
 
 

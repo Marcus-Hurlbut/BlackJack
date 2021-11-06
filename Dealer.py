@@ -4,7 +4,6 @@ class Dealer:
 	def __init__(self):
 		self.hand = []
 		self.bust = False
-		self.money = 1000
 		self.hand_value = 0
 
 	# Print Dealers Face Card w/ formatting
@@ -37,7 +36,7 @@ class Dealer:
 		for card in self.hand:
 			total_value += card.getValue()
 
-		if (total_value <= 16):
+		if (total_value < 17):
 			return True
 		else:
 			return False
@@ -54,7 +53,8 @@ class Dealer:
 			for card in self.hand:
 				if card.getValue() == 11:
 					card.setValue(1)
-					total_value -= 10	
+					total_value -= 10
+
 					if (total_value < 22):
 						break
 			break		

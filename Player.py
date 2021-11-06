@@ -7,18 +7,22 @@ class Player:
 		self.bust = False
 		self.money = 0
 		self.hand_value = 0
+		self.bet_amount = 0
 
 	def turn(self):
-		user_turn = 0
-		user_turn = int(input('\n\t[*] Enter `0` to Stand or `1` to Hit: '))
-		user_turn = int(user_turn)
+		while True:
+			try:
+				user_turn = int(input('\n\t[*] Enter `0` to Stand or `1` to Hit: '))
 
-		while(user_turn < 0 or user_turn > 1):
-			print('\n\t[!] Please a correct key - Enter `0` to Stand or `1` to Hit.')
-			user_turn = int(input('\t[*] Enter `0` to Stand or `1` to Hit: '))
+				if (user_turn < 0 or user_turn > 1):
+					print('\n\t[!] Incorrect Number Error: Enter only a `0`  or `1`.')
+				else:
+					break
+			except ValueError:
+				print('\n\t[!] Value Error: Please enter a valid number integer.')
+
 
 		self.move = user_turn
-
 		return self.move
 
 	def printHand(self):
