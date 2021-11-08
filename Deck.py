@@ -6,8 +6,8 @@ ACE = 11
 
 class Deck:
 	def __init__(self):
-		self.deck = []
-		self.shuffle()
+		self.deck = [] 		# Represents the Deck in play
+		self.shuffle()		# 
 
 
 	# Shuffles new deck

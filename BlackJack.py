@@ -31,7 +31,7 @@ class BlackJack:
 
 
 		print('[*] Thanks for playing BlackJack!')
-		print('[!] Exiting...')
+		print('[*] Exiting...')
 		return False
 
 
@@ -236,12 +236,18 @@ class BlackJack:
 
 
 	def keepPlaying(self):
-		self.playAgain = int(input('\n[*] Would you like to play another round: [1 for `Yes` / 0 for `No`]: '))
+		while True:
+			try:
+				self.playAgain = int(input('\n\t[*] Would you like to play another round: [1 for `Yes` / 0 for `No`]: '))
 
-		# Entry Handling
-		while(self.playAgain > 1 or self.playAgain < 0):
-			print('[!] Please enter a valid key. ')
-			self.playAgain = int(input('\n[*] Would you like to play another round. [1 for `Yes` / 0 for `No`]'))
+				# Entry Handling
+				if(self.playAgain > 1 or self.playAgain < 0):
+					print('\t[!] Number Error: Please enter a valid number. ')
+				else:
+					break
+
+			except ValueError:
+				print('\n\t[!] Value Error: Please enter a valid number integer.')
 
 		# End game session
 		return self.playAgain
